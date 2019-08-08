@@ -1,4 +1,5 @@
-# get-cpcert
+# get-cpcert forked from kov-serg/get-cpcert
+
 Console utility to convert cryptopro4 certificate (gost-2001, gost-2012) into pem file for openssl 1.1.1
 
 ## usage
