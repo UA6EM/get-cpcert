@@ -23,9 +23,4 @@ prepare_x32.sh -- download,build & install openssl 1.1.1 & gost-engin
    
 </pre>
 
-## prebuild binaries
-<pre>
-get-cpcert-bin.tar.gz -- contains prebuild binaries for ubuntu 14.04 64bit and 3 samples for testing
-</pre>
-
-  
+ 
