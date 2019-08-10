@@ -16,6 +16,11 @@ prepare.sh -- download,build & install openssl 1.1.1 & gost-engine + cmake
 
 build.sh -- build get-cpcert
   it outputs get-cpcert and libgost.so
+  
+  Tested on xbuntu 16.04 LTS 32bit
+  
+prepare_x32.sh -- download,build & install openssl 1.1.1 & gost-engin
+   
 </pre>
 
 ## prebuild binaries
