@@ -6,18 +6,18 @@ exit 1
 }
 
 function download() {
-mkdir -p libs
-wget -O libs/openssl.zip -c https://codeload.github.com/openssl/openssl/zip/OpenSSL_1_1_1-stable || die "download openssl"
-wget -O libs/gost-engine.zip -c https://codeload.github.com/gost-engine/engine/zip/1b374532c2d494710c39371e83c197d08c65e8bc || die "download gost-engine"
-wget -O libs/cmake-3.14.0.tar.gz -c https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0.tar.gz || die "download cmake"
+mkdir -p libs  || die "make dir libs"
+wget -O libs/openssl.zip -c --no-check-certificate https://codeload.github.com/openssl/openssl/zip/OpenSSL_1_1_1-stable || die "download openssl"
+wget -O libs/gost-engine.zip -c --no-check-certificate https://codeload.github.com/gost-engine/engine/zip/1b374532c2d494710c39371e83c197d08c65e8bc || die "download gost-engine"
+wget -O libs/cmake-3.14.0.tar.gz -c --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0.tar.gz || die "download cmake"
 }
 
 function prereq() {
-sudo apt-get install make pkg-config autoconf build-essential
+sudo apt-get install make pkg-config autoconf build-essential -y || die "install soft"
 }
 
 function unpack() {
-cd libs
+cd libs || die "cd libs"
 unzip openssl.zip          || die "unpack openssl"
 unzip gost-engine.zip      || die "unpack gost-engine"
 ln -s engine-1b374532c2d494710c39371e83c197d08c65e8bc engine || die "ln gost-engine"
@@ -26,21 +26,21 @@ cd ..
 }
 
 function mk_cmake() {
-cd libs/cmake-3.14.0
+cd libs/cmake-3.14.0  || die "cd libs/cmake-3.14.0"
 ./configure       || die "configure cmake"
 make              || die "make cmake"
 sudo make install || die "install cmake"
-cd ../..
+cd ../..  || die "cd ../.. in function make cmake3 "
 }
 
 function mk_openssl() {
-cd libs/openssl-OpenSSL_1_1_1-stable
+cd libs/openssl-OpenSSL_1_1_1-stable  || die "cd libs/openssl-OpenSSL_1_1_1-stable"
 ./config          || die "config openssl"
 make              || die "make openssl"
 sudo make install || die "install openssl"
 sudo ln -s /usr/local/lib/libssl.so.1.1 /lib/x86_64-linux-gnu/libssl.so.1.1       || die "ln libssl"
 sudo ln -s /usr/local/lib/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 || die "ln libcrypto"
-cd ../..
+cd ../.. || die "cd ../.. in function make openssl"
 }
 
 function mk_gost() {
